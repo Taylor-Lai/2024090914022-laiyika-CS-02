@@ -360,3 +360,80 @@ int main()
 ```
 ![image](https://github.com/Taylor-Lai/2024090914022-laiyika-CS-02/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-22%20174949.png)
 ![image](https://github.com/Taylor-Lai/2024090914022-laiyika-CS-02/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-22%20174936.png)
+
+3.
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+
+#define MAX_SIZE 50
+
+typedef struct 
+{
+    char items[MAX_SIZE];
+    int top; 
+} Stack;
+
+void first(Stack *s) 
+{
+    s->top = -1;
+}
+
+bool ifEmpty(Stack *s) 
+{
+    return s->top == -1;
+}
+
+bool push(Stack *s, char item) 
+{
+    if (s->top == MAX_SIZE - 1) 
+    { 
+        return 0;
+    }
+    s->items[++s->top] = item;
+    return 1;
+}
+
+char pop(Stack *s) {
+    if (ifEmpty(s)) 
+    {
+        printf("空\n");
+        return 'p';
+    }
+    return s->items[s->top--]; 
+}
+
+int main() 
+{
+    Stack s;
+    first(&s);
+    char zifuzu[] = "kiglnmrmeiahenrteof4ardar";
+    char shuzizu[] = "3112212112122112211221122112111112";
+    int i, j, a = 0;
+
+    for (i = 0; i < strlen(shuzizu); i++)
+    {
+        int count = shuzizu[i] - '0';
+
+        if (i % 2 == 0)
+        {
+            for (j = 0; j < count && a < strlen(zifuzu); j++)
+            {
+                push(&s, zifuzu[a++]);
+            }
+        }
+        else
+        {
+            for (j = 0; j < count && !ifEmpty(&s); j++)
+            {
+                char poppedChar = pop(&s);
+                printf("%c", poppedChar);
+            }
+        }
+    }
+    printf("\n");
+    return 0;
+}
+```
