@@ -164,3 +164,198 @@ int main()
 ```
 ![image](https://github.com/Taylor-Lai/2024090914022-laiyika-CS-02/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-22%20173727.png)
 
+
+2.
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node 
+{
+    int data;       
+    struct Node* next;
+} Node;
+
+Node* createNode(int d) 
+{
+    Node* newNode = malloc(sizeof(Node)); 
+    if (newNode == NULL) 
+    {
+        printf("失败\n");
+        exit(1); 
+    }
+    newNode->data = d;
+    newNode->next = NULL;
+    return newNode;
+}
+
+void addfront(Node** head, int d) 
+{
+    Node* newNode = createNode(d);
+    
+    newNode->next = *head;
+    *head=newNode;
+}
+
+void addbehind(Node** head, int d) 
+{
+    if (*head == NULL) 
+    {
+        *head = createNode(d);
+        return;
+    }
+
+    Node* tail = *head;
+    while(tail->next!=NULL)
+    {
+        tail=tail->next;
+    }
+    Node* newNode = createNode(d);
+    tail->next = newNode; 
+}
+
+void delete(Node** head, int n) 
+{
+    if (*head == NULL)
+    {
+        return;
+    }
+
+    if (n == 1) 
+    {
+        Node* temp = *head;
+        *head = (*head)->next;
+        free(temp); 
+        return;
+    }
+
+    Node* current = *head;
+    Node* pre = NULL;
+    if (current == NULL) {
+        return;
+    }
+    for (int i = 1; i < n; ++i) 
+    {
+        pre = current;
+        current = current->next;
+    }
+
+        pre->next = current->next;
+
+    free(current); 
+}
+
+void collect(Node** head) 
+{
+    if (*head == NULL || (*head)->next == NULL) 
+    {
+    
+        return;
+    }
+
+    Node* tail = *head;
+    while (tail->next != NULL) 
+    {
+        tail = tail->next;
+    }
+    tail->next = *head;
+}
+
+void print(Node* head) 
+{
+    Node* current = head;
+    if (head == NULL) {
+        printf("链表为空\n");
+        return;
+    }
+    if (current->next == head) 
+    {
+
+        printf("%d\n", current->data);
+        return;
+    }
+    while (current->next!= head)
+    {
+        printf("%d ", current->data);
+        current = current->next; 
+    }
+    printf("%d\n",current->data);
+}
+
+void josephus(Node** head, int m) 
+{
+    int n;
+    if (!head || !*head || !(*head)->next || *head == (*head)->next)
+    return;
+
+    FILE* fp = fopen("Josephus.out", "w");
+    if (!fp) 
+    {
+        perror("Failed to open file");
+        return;
+    }
+
+    Node* prev = NULL;
+    Node* current = *head;
+
+    while (current->data != 3) 
+    {
+        prev = current;
+        current = current->next;
+    }
+
+    n=m;
+    while (current != current->next) 
+    { 
+        for (int count = 1; count < n; count++) 
+        {
+            prev = current;
+            current = current->next;
+            if (current == current->next) break;
+        }
+        prev->next = current->next;
+        fprintf(fp, "%d ", current->data);
+        free(current);
+        current = prev->next;
+        n++;
+    }
+
+    { 
+        fprintf(fp, "%d ", current->data);
+        free(current);
+    }
+
+    *head = NULL;
+    fclose(fp);
+}
+#define H addfront
+#define T addbehind
+#define D delete
+#define C collect
+#define P print
+#define J josephus
+int main()
+{
+    Node*head=createNode(1);
+    T(&head,1);T(&head,1);T(&head,1);
+    H(&head,1);H(&head,2);H(&head,3);
+    T(&head,1);T(&head,3);T(&head,1);
+    D(&head,9);
+    H(&head,1);H(&head,2);H(&head,1);
+    T(&head,2);T(&head,2);T(&head,2);
+    H(&head,2);H(&head,1);H(&head,2);
+    D(&head,1);
+    H(&head,1);H(&head,2);H(&head,2);
+    T(&head,1);T(&head,2);T(&head,2);
+    D(&head,23);
+    T(&head,2);T(&head,1);T(&head,1);
+    T(&head,2);T(&head,2);T(&head,2);
+    H(&head,1);H(&head,2);H(&head,1);
+    H(&head,1);H(&head,1);H(&head,1);
+    C(&head);
+    P(head);
+    J(&head,1);
+    return 0;
+}
+```
+
