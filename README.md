@@ -437,3 +437,4 @@ int main()
     return 0;
 }
 ```
+![image](https://github.com/Taylor-Lai/2024090914022-laiyika-CS-02/blob/main/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-10-22%20185003.png)
