@@ -90,7 +90,8 @@ void delete(Node** head, int n)
 
     Node* current = *head;
     Node* pre = NULL;
-    if (current == NULL) {
+    if (current == NULL)
+    {
         return;
     }
     for (int i = 1; i < n; ++i) 
@@ -123,7 +124,8 @@ void collect(Node** head)
 void print(Node* head) 
 {
     Node* current = head;
-    if (head == NULL) {
+    if (head == NULL)
+    {
         printf("链表为空\n");
         return;
     }
