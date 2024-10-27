@@ -368,7 +368,7 @@ int main()
 
 #define MAX_SIZE 50
 
-typedef struct s
+typedef struct 
 {
     char items[MAX_SIZE];
     int top; 
