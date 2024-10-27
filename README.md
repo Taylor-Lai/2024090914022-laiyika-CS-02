@@ -58,11 +58,6 @@ void addfront(Node** head, int d)
 
 void addbehind(Node** head, int d) 
 {
-    if (*head == NULL) 
-    {
-        *head = createNode(d);
-        return;
-    }
 
     Node* tail = *head;
     while(tail->next!=NULL)
