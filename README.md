@@ -287,18 +287,9 @@ void print(Node* head)
     printf("%d\n",current->data);
 }
 
-void josephus(Node** head, int m) 
+void josephus(Node** head, int n）
 {
-    int n;
-    if (!head || !*head || !(*head)->next || *head == (*head)->next)
-    return;
-
     FILE* fp = fopen("Josephus.out", "w");
-    if (!fp) 
-    {
-        perror("Failed to open file");
-        return;
-    }
 
     Node* prev = NULL;
     Node* current = *head;
@@ -309,14 +300,14 @@ void josephus(Node** head, int m)
         current = current->next;
     }
 
-    n=m;
     while (current != current->next) 
     { 
         for (int count = 1; count < n; count++) 
         {
             prev = current;
             current = current->next;
-            if (current == current->next) break;
+            if (current == current->next)
+            break;
         }
         prev->next = current->next;
         fprintf(fp, "%d ", current->data);
@@ -377,7 +368,7 @@ int main()
 
 #define MAX_SIZE 50
 
-typedef struct 
+typedef struct s
 {
     char items[MAX_SIZE];
     int top; 
